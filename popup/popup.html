@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuizMe</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Setup View: No LLM configured -->
+    <div id="setup-view" class="view">
+      <div class="view-content centered">
+        <div class="logo">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <rect width="48" height="48" rx="12" fill="var(--primary)"/>
+            <text x="24" y="32" text-anchor="middle" fill="white" font-size="24" font-weight="bold">Q</text>
+          </svg>
+        </div>
+        <h1>QuizMe</h1>
+        <p class="subtitle">Configure your LLM to get started</p>
+        <button id="open-settings-btn" class="btn btn-primary btn-lg">Open Settings</button>
+      </div>
+    </div>
+
+    <!-- Ready View: LLM configured -->
+    <div id="ready-view" class="view hidden">
+      <div class="view-header">
+        <h1>QuizMe</h1>
+        <button id="settings-gear" class="btn-icon" title="Settings">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M10 13a3 3 0 100-6 3 3 0 000 6z"/>
+            <path fill-rule="evenodd" d="M9.99 0C10.55 0 11.05.22 11.41.59l1.03 1.03c.18.07.36.15.53.24l1.41-.35c.52-.13 1.07.04 1.44.41l.01.01c.37.37.54.92.41 1.44l-.35 1.41c.09.17.17.35.24.53l1.03 1.03c.37.36.59.86.59 1.42v.01c0 .56-.22 1.06-.59 1.42l-1.03 1.03c-.07.18-.15.36-.24.53l.35 1.41c.13.52-.04 1.07-.41 1.44l-.01.01c-.37.37-.92.54-1.44.41l-1.41-.35c-.17.09-.35.17-.53.24l-1.03 1.03c-.36.37-.86.59-1.42.59-.56 0-1.06-.22-1.42-.59L7.12 16.6c-.18-.07-.36-.15-.53-.24l-1.41.35c-.52.13-1.07-.04-1.44-.41l-.01-.01a1.99 1.99 0 01-.41-1.44l.35-1.41a7.1 7.1 0 01-.24-.53L2.4 11.88A1.99 1.99 0 011.81 10.46v-.01c0-.56.22-1.06.59-1.42l1.03-1.03c.07-.18.15-.36.24-.53l-.35-1.41a1.99 1.99 0 01.41-1.44l.01-.01c.37-.37.92-.54 1.44-.41l1.41.35c.17-.09.35-.17.53-.24L8.15.59A1.99 1.99 0 019.57 0h.42zM10 6a4 4 0 100 8 4 4 0 000-8z" clip-rule="evenodd" opacity="0.5"/>
+          </svg>
+        </button>
+      </div>
+      <div class="view-content centered">
+        <p id="provider-info" class="provider-badge">Using: Ollama (llama3.2)</p>
+        <button id="quiz-me-btn" class="btn btn-primary btn-xl pulse">Quiz Me!</button>
+      </div>
+    </div>
+
+    <!-- Loading View -->
+    <div id="loading-view" class="view hidden">
+      <div class="view-content centered">
+        <div class="spinner"></div>
+        <p id="loading-text" class="loading-text">Reading page content...</p>
+      </div>
+    </div>
+
+    <!-- Quiz View -->
+    <div id="quiz-view" class="view hidden">
+      <div class="quiz-header">
+        <div class="progress-bar-container">
+          <div id="progress-bar" class="progress-bar" style="width: 0%"></div>
+        </div>
+        <span id="question-counter" class="question-counter">Question 1 of 5</span>
+      </div>
+      <div class="quiz-content">
+        <p id="question-text" class="question-text"></p>
+        <div id="options-container" class="options-container"></div>
+      </div>
+      <div class="quiz-footer">
+        <button id="next-btn" class="btn btn-primary" disabled>Next</button>
+      </div>
+    </div>
+
+    <!-- Results View -->
+    <div id="results-view" class="view hidden">
+      <div class="results-header">
+        <div id="score-circle" class="score-circle">
+          <span id="score-text" class="score-value">4/5</span>
+          <span id="score-percent" class="score-percent">80%</span>
+        </div>
+      </div>
+      <div id="results-list" class="results-list"></div>
+      <div class="results-footer">
+        <button id="redo-btn" class="btn btn-secondary">Redo Quiz</button>
+        <button id="new-quiz-btn" class="btn btn-primary">New Quiz</button>
+        <button id="close-btn" class="btn btn-secondary">Close</button>
+      </div>
+    </div>
+
+    <!-- Error View -->
+    <div id="error-view" class="view hidden">
+      <div class="view-content centered">
+        <div class="error-icon">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="22" stroke="var(--error)" stroke-width="3"/>
+            <line x1="24" y1="14" x2="24" y2="28" stroke="var(--error)" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="24" cy="34" r="2" fill="var(--error)"/>
+          </svg>
+        </div>
+        <p id="error-message" class="error-message">Something went wrong</p>
+        <div class="error-actions">
+          <button id="try-again-btn" class="btn btn-primary">Try Again</button>
+          <button id="error-settings-btn" class="btn btn-secondary">Settings</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
