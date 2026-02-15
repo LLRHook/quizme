@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuizMe Settings</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="options-container">
+    <div class="options-header">
+      <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
+        <rect width="48" height="48" rx="12" fill="var(--primary)"/>
+        <text x="24" y="32" text-anchor="middle" fill="white" font-size="24" font-weight="bold">Q</text>
+      </svg>
+      <h1>QuizMe Settings</h1>
+    </div>
+
+    <!-- LLM Provider Selection -->
+    <section class="settings-section">
+      <h2>LLM Provider</h2>
+      <div class="provider-tabs">
+        <button class="provider-tab active" data-provider="ollama">Local (Ollama)</button>
+        <button class="provider-tab" data-provider="openai">OpenAI</button>
+        <button class="provider-tab" data-provider="anthropic">Anthropic</button>
+      </div>
+
+      <!-- Ollama Settings -->
+      <div id="ollama-settings" class="provider-settings">
+        <div class="form-group">
+          <label for="ollama-url">Server URL</label>
+          <input type="url" id="ollama-url" placeholder="http://localhost:11434" value="http://localhost:11434">
+        </div>
+        <div class="form-group">
+          <label for="ollama-model">Model <span id="ollama-model-status" class="inline-status"></span></label>
+          <select id="ollama-model">
+            <option value="" disabled selected>Loading models...</option>
+          </select>
+        </div>
+        <button id="test-ollama" class="btn btn-secondary btn-sm">Test Connection</button>
+      </div>
+
+      <!-- OpenAI Settings -->
+      <div id="openai-settings" class="provider-settings hidden">
+        <div class="form-group">
+          <label for="openai-key">API Key</label>
+          <div class="input-with-toggle">
+            <input type="password" id="openai-key" placeholder="sk-...">
+            <button class="toggle-visibility" data-target="openai-key" type="button" aria-label="Toggle visibility">
+              <svg class="eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+              <svg class="eye-off-icon hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+                <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+                <line x1="1" y1="1" x2="23" y2="23"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="openai-model">Model</label>
+          <select id="openai-model">
+            <option value="gpt-4o-mini">GPT-4o Mini</option>
+            <option value="gpt-4o">GPT-4o</option>
+            <option value="gpt-4-turbo">GPT-4 Turbo</option>
+          </select>
+        </div>
+        <button id="test-openai" class="btn btn-secondary btn-sm">Test Connection</button>
+      </div>
+
+      <!-- Anthropic Settings -->
+      <div id="anthropic-settings" class="provider-settings hidden">
+        <div class="form-group">
+          <label for="anthropic-key">API Key</label>
+          <div class="input-with-toggle">
+            <input type="password" id="anthropic-key" placeholder="sk-ant-...">
+            <button class="toggle-visibility" data-target="anthropic-key" type="button" aria-label="Toggle visibility">
+              <svg class="eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+              <svg class="eye-off-icon hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+                <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+                <line x1="1" y1="1" x2="23" y2="23"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="anthropic-model">Model</label>
+          <select id="anthropic-model">
+            <option value="claude-sonnet-4-5-20250929">Claude Sonnet 4.5</option>
+            <option value="claude-haiku-4-5-20251001">Claude Haiku 4.5</option>
+          </select>
+        </div>
+        <button id="test-anthropic" class="btn btn-secondary btn-sm">Test Connection</button>
+      </div>
+
+      <div id="test-result" class="test-result hidden"></div>
+    </section>
+
+    <!-- Quiz Settings -->
+    <section class="settings-section">
+      <h2>Quiz Settings</h2>
+      <div class="form-group">
+        <label for="difficulty">Difficulty</label>
+        <div class="radio-group">
+          <label class="radio-label">
+            <input type="radio" name="difficulty" value="easy"> Easy
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="difficulty" value="medium" checked> Medium
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="difficulty" value="hard"> Hard
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="max-questions">Max Questions: <span id="max-questions-value">5</span></label>
+        <input type="range" id="max-questions" min="3" max="15" value="5">
+      </div>
+    </section>
+
+    <!-- Actions -->
+    <div class="options-actions">
+      <button id="save-btn" class="btn btn-primary">Save Settings</button>
+      <span id="status-message" class="status-message hidden"></span>
+    </div>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
