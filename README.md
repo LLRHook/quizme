@@ -52,6 +52,10 @@ The extension extracts readable text from the page, sends it to an LLM, and buil
 - Session persistence across popup closes
 - Smart content extraction that filters out ads, navigation, and boilerplate
 
+## Related
+
+See [langchain-quiz](https://github.com/LLRHook/langchain-quiz) for a CLI version that generates quizzes from text files, with optional Tavily web search enrichment.
+
 ## Project Structure
 
 ```
