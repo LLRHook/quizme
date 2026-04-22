@@ -27,8 +27,14 @@ jobs:
           mkdir -p dist
           cp -R manifest.json background content icons lib options popup dist/
 
-      - name: Upload unpacked build
+      - name: Create Chrome Web Store zip
+        run: |
+          (cd dist && zip -qr ../quizme-chrome.zip .)
+
+      - name: Upload extension package
         uses: actions/upload-artifact@v4
         with:
-          name: quizme-unpacked
-          path: dist/
+          name: quizme-package
+          path: |
+            dist/
+            quizme-chrome.zip
