@@ -1,0 +1,12 @@
+.DS_Store
+Thumbs.db
+
+# Browser store packages
+dist/
+*.zip
+*.crx
+*.pem
+
+# Local agent context
+CLAUDE.md
+.claude/
